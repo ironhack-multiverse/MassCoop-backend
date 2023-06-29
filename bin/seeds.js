@@ -4266,8 +4266,11 @@ mongoose
   })
   .then( (response) => {
     console.log(response);
-
-    return Game.insertMany(games);
+   const gamesArr=  games.map((game)=>{
+return ({...game, reviews: []})
+    })
+    console.log("messing up", gamesArr[0])
+    return Game.insertMany(gamesArr);
   })
   .then(gamesFromDB => {
     console.log(`Created ${gamesFromDB.length} games`);

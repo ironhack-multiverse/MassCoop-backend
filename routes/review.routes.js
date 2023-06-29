@@ -7,15 +7,18 @@ const Review = require("../models/Review.model");
 
 
 //  POST /api/reviews  -  Creates a new review
-router.post("/reviews", (req, res, next) => {
-    const { description, rating, gameId } = req.body;
+router.post("/reviews/:gameId", (req, res, next) => {
+    const { comment, rating } = req.body;
+    const gameId = req.params.gameId;
+    console.log(req.body);
+    console.log(gameId)
 
     const newReview = {
-        description: description,
+        comment: comment,
         rating: rating,
-        game: gameId
+       
     }
-
+console.log(newReview);
     Review.create(newReview)
     .then(reviewFromDB => {
         return Game.findByIdAndUpdate(gameId, { $push: { reviews: reviewFromDB._id } });
@@ -29,5 +32,58 @@ router.post("/reviews", (req, res, next) => {
         });
     })
 });
+
+
+// PUT /api/reviews/:reviewId  -  Updates a specific review by id
+router.put('/reviews/:reviewId', (req, res, next) => {
+    const { reviewId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(reviewId)) {
+        res.status(400).json({ message: 'Specified ID is not valid' });
+        return;
+    }
+
+    const newDetails = {
+        comment: req.body.comment,
+        rating: req.body.rating,
+    }
+
+    Review.findByIdAndUpdate(reviewId, newDetails, { new: true })
+        .then((updatedReview) => res.json(updatedReview))
+        .catch(err => {
+            console.log("error updating review", err);
+            res.status(500).json({
+                message: "error updating review",
+                error: err
+            });
+        })
+});
+// DELETE /api/reviews/:reviewId  -  Delete a specific review by id
+router.delete('/reviews/:reviewId', (req, res, next) => {
+    const { reviewId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(reviewId)) {
+        res.status(400).json({ message: 'Specified ID is not valid' });
+        return;
+    }
+
+    Review.findByIdAndRemove(reviewId)
+        .then(deletedReview => {
+            return Review.deleteMany({ _id: { $in: deletedReview.game } }); // delete all reviews assigned to that game
+        })
+        .then(() => res.json({ message: `Review with id ${reviewId} & all associated tasks were removed successfully.` }))
+        .catch(err => {
+            console.log("error deleting review", err);
+            res.status(500).json({
+                message: "error deleting review",
+                error: err
+            });
+        })
+});
+
+
+
+
+
 
 module.exports = router;

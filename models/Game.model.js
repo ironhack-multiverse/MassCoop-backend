@@ -12,7 +12,7 @@ const gameSchema = new Schema (
    offlinecoop: Boolean,
    onlinecoop: Boolean,
    onlinemax: Number,
-   review: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
+   reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
 },
 {
     // this second object adds extra properties: `createdAt` and `updatedAt`

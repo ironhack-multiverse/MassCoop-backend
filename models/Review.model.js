@@ -2,7 +2,6 @@ const { Schema, model } = require("mongoose");
 
 const reviewSchema = new Schema (
 {
-    game: [{ type: Schema.Types.ObjectId, ref: 'Game' }],
     comment: String, //should be a big empty box
     rating: Number,
 },
