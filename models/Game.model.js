@@ -1,12 +1,18 @@
 const { Schema, model } = require("mongoose");
 
-const gameSchema = newSchema (
+const gameSchema = new Schema (
 {
-    title: String,
-    typeOfMultiplayer: String, //coop, versus...
-    maxPlayers: Number,
-    host: String, //to be online or offline(=local)
-    counterOfLikes: Number
+    game: {
+        name: String,
+        cover:{
+            url: String
+        },
+    },
+   campaigncoop: Boolean,
+   offlinecoop: Boolean,
+   onlinecoop: Boolean,
+   onlinemax: Number,
+   review: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
 },
 {
     // this second object adds extra properties: `createdAt` and `updatedAt`
@@ -15,6 +21,7 @@ const gameSchema = newSchema (
 );
 
 
+
 const Game = model("Game", gameSchema);
 
-module.exports = User;
+module.exports = Game;

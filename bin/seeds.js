@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-// const something = require('../models/something.model');
+const Game = require('../models/Game.model');
+
+
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/masscoop-backend'
 const games = [
     {
@@ -4260,12 +4262,12 @@ mongoose
   .then((x) => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
 
-    return //Game.deleteMany({}); //WARNING: this will delete all games in your DB !!
+    return Game.deleteMany({}); //WARNING: this will delete all games in your DB !!
   })
   .then( (response) => {
     console.log(response);
 
-    return // Game.insertMany(games);
+    return Game.insertMany(games);
   })
   .then(gamesFromDB => {
     console.log(`Created ${gamesFromDB.length} games`);
