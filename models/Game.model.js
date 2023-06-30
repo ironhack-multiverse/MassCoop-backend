@@ -7,6 +7,7 @@ const gameSchema = new Schema (
         cover:{
             url: String
         },
+        summary: String
     },
    campaigncoop: Boolean,
    offlinecoop: Boolean,
