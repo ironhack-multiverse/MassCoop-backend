@@ -21,7 +21,7 @@ router.post("/reviews/:gameId", (req, res, next) => {
 console.log(newReview);
     Review.create(newReview)
     .then(reviewFromDB => {
-        return Game.findByIdAndUpdate(gameId, { $push: { reviews: reviewFromDB._id } });
+        return Game.findByIdAndUpdate(gameId, { $push: { reviews: reviewFromDB._id } }, {new: true});
     })
     .then(response => res.status(201).json(response))
     .catch(err => {
@@ -69,9 +69,9 @@ router.delete('/reviews/:reviewId', (req, res, next) => {
 
     Review.findByIdAndRemove(reviewId)
         .then(deletedReview => {
-            return Review.deleteMany({ _id: { $in: deletedReview.game } }); // delete all reviews assigned to that game
+            return Game.findOneAndUpdate({ reviews: { $in: reviewId } }, {$pull:{reviews: reviewId}}); // Finding a specific game, pulling the review by id and delete 
         })
-        .then(() => res.json({ message: `Review with id ${reviewId} & all associated tasks were removed successfully.` }))
+        .then(() => res.json({ message: `Review with id ${reviewId} & all associated reviews were removed successfully.` }))
         .catch(err => {
             console.log("error deleting review", err);
             res.status(500).json({
