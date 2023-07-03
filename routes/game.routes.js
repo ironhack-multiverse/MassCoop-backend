@@ -50,35 +50,40 @@ router.get('/games/:gameId', (req, res, next) => {
 
 
 //  POST /api/games  -  Creates a new game
-router.post("/games/create", (req, res, next) => {
-    const { name, cover, summary, campaigncoop, offlinecoop, onlinecoop, onlinemax, review } = req.body.game;
-  
-    const newGame = {
-      game: {
-        name,
-        cover: {
-          url: cover.url
-        },
-        summary
-      },
-      campaigncoop,
-      offlinecoop,
-      onlinecoop,
-      onlinemax,
-      review: [] // Assuming you want an empty array for the review property
-    };
-  
-        
+router.post("/games", (req, res, next) => {
+  const {
+    name,
+    summary,
+    campaigncoop,
+    offlinecoop,
+    onlinecoop,
+    onlinemax,
+  } = req.body.game;
 
- Game.create(newGame)
-        .then(response => res.status(201).json(response))
-        .catch(err => {
-            console.log("error creating a new gane", err);
-            res.status(500).json({
-                message: "error creating a new project",
-                error: err
-            });
-        })
+  const newGame = {
+    game: {
+      name,
+      summary,
+    },
+    campaigncoop,
+    offlinecoop,
+    onlinecoop,
+    onlinemax,
+    review: [], // Assuming you want an empty array for the review property
+  };
+
+
+  Game.create(newGame)
+    .then((response) => {
+        res.status(201).json(response)
+    })
+    .catch((err) => {
+      console.log("error creating a new gane", err);
+      res.status(500).json({
+        message: "error creating a new project",
+        error: err,
+      });
+    });
 });
 
 
