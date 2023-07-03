@@ -18,9 +18,13 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
-    age: Date,
-   // picture: Image,
-    preferences: String
+    birth: Date,
+    // picture: Image,
+    preferences: {
+      type: String,
+      enum: ["Online games", "Local/offline games", "Both online and local"],
+      required: true,
+    },
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
