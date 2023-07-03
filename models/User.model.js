@@ -18,7 +18,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
-    age: Number,
+    age: Date,
    // picture: Image,
     preferences: String
   },
