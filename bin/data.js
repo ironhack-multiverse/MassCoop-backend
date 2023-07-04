@@ -322,17 +322,6 @@ const games = [
         "checksum": "aa5b58ad-5010-6870-1f9d-1cbe6c591118"
     },
     {
-        "id": 10984,
-        "campaigncoop": false,
-        "dropin": false,
-        "lancoop": false,
-        "offlinecoop": false,
-        "onlinecoop": false,
-        "platform": 32,
-        "splitscreen": false,
-        "checksum": "2c795030-9c2f-da18-8228-c03c08bf54ab"
-    },
-    {
         "id": 10358,
         "campaigncoop": true,
         "dropin": false,
@@ -1701,17 +1690,6 @@ const games = [
         "platform": 6,
         "splitscreen": true,
         "checksum": "74884a30-c9e0-5e9b-99c5-6d0e0f537bcc"
-    },
-    {
-        "id": 9992,
-        "campaigncoop": false,
-        "dropin": false,
-        "lancoop": false,
-        "offlinecoop": false,
-        "onlinecoop": false,
-        "platform": 4,
-        "splitscreen": false,
-        "checksum": "bb53e72b-e916-3cf8-3ab1-3c291c213237"
     },
     {
         "id": 10583,
@@ -3832,16 +3810,7 @@ const games = [
         "splitscreen": false,
         "checksum": "04be790f-c05c-30f3-131c-41a4f6662305"
     },
-    {
-        "id": 7358,
-        "campaigncoop": false,
-        "dropin": false,
-        "lancoop": false,
-        "offlinecoop": false,
-        "onlinecoop": false,
-        "splitscreen": false,
-        "checksum": "70dbbe82-40b4-e80d-8a9f-ab5c4cd7ad9c"
-    },
+
     {
         "id": 558,
         "campaigncoop": true,
