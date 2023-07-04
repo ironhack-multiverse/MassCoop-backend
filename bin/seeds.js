@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Game = require('../models/Game.model');
 const games = require('./data')
+require('dotenv').config()
 
 
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/masscoop-backend'
