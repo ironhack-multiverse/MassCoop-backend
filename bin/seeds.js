@@ -16,7 +16,7 @@ mongoose
   .then( (response) => {
     console.log(response);
    const gamesArr=  games.map((game)=>{
-return ({...game, reviews: []})
+return ({...game, reviews: [], rating: null})
     })
     console.log("messing up", gamesArr[0])
     return Game.insertMany(gamesArr);
