@@ -52,13 +52,15 @@ router.get('/games/:gameId', (req, res, next) => {
 //  POST /api/games  -  Creates a new game
 router.post("/games", (req, res, next) => {
   const {
-    name,
-    summary,
+    game: {
+      name,
+      summary,
+    },
     campaigncoop,
     offlinecoop,
     onlinecoop,
     onlinemax,
-  } = req.body.game;
+  } = req.body;
 
   const newGame = {
     game: {
@@ -69,9 +71,8 @@ router.post("/games", (req, res, next) => {
     offlinecoop,
     onlinecoop,
     onlinemax,
-    review: [], // Assuming you want an empty array for the review property
-  };
-
+    review: [], 
+  }
 
   Game.create(newGame)
     .then((response) => {
