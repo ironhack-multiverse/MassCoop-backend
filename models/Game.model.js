@@ -13,6 +13,7 @@ const gameSchema = new Schema (
    offlinecoop: Boolean,
    onlinecoop: Boolean,
    onlinemax: Number,
+   offlinemax: Number,
    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
 },
 {

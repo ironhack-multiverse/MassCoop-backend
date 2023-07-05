@@ -69,7 +69,7 @@ router.delete('/reviews/:reviewId', (req, res, next) => {
 
     Review.findByIdAndRemove(reviewId)
         .then(deletedReview => {
-            return Game.findOneAndUpdate({ reviews: { $in: reviewId } }, {$pull:{reviews: reviewId}}); // Finding a specific game, pulling the review by id and delete 
+            return Game.findOneAndUpdate({ reviews: { $in: reviewId } }, {$pull:{reviews: reviewId}}, { new: true }); // Finding a specific game, pulling the review by id and delete 
         })
         .then(() => res.json({ message: `Review with id ${reviewId} & all associated reviews were removed successfully.` }))
         .catch(err => {
