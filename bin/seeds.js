@@ -11,7 +11,7 @@ mongoose
   .then((x) => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
 
-    return Game.deleteMany({}); //WARNING: this will delete all games in your DB !!
+    return Game.deleteMany({}); 
   })
   .then( (response) => {
     console.log(response);

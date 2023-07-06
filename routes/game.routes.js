@@ -34,7 +34,7 @@ router.get("/games/:gameId", (req, res, next) => {
   }
 
   Game.findById(gameId)
-    .populate("reviews") ///this is referencing review in our game model
+    .populate("reviews") 
     .then((game) => res.json(game))
     .catch((err) => {
       console.log("error getting details of a game", err);
