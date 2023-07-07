@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
+const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 const Game = require("../models/Game.model");
 const Review = require("../models/Review.model");
@@ -46,7 +47,8 @@ router.get("/games/:gameId", (req, res, next) => {
 });
 
 //  POST /api/games  -  Creates a new game
-router.post("/games", (req, res, next) => {
+router.post("/games",isAuthenticated, (req, res, next) => {
+  console.log(req.payload) // {_id, name, email}
   const {
     game: { name, summary },
     campaigncoop,
@@ -65,6 +67,7 @@ router.post("/games", (req, res, next) => {
     onlinecoop,
     onlinemax,
     review: [],
+    owner: req.payload._id,
   };
 
   Game.create(newGame)
@@ -97,20 +100,30 @@ router.put("/games/:gameId", (req, res, next) => {
 
 
 // DELETE : delete a specific game by ID
-router.delete("/games/:gameId", (req, res, next) => {
+router.delete("/games/:gameId", isAuthenticated, (req, res, next) => {
   const { gameId } = req.params;
+  const  userId  = req.payload._id;
 
   if (!mongoose.Types.ObjectId.isValid(gameId)) {
     res.status(400).json({ message: "Specified id is not valid" });
     return;
   }
 
-  Game.findByIdAndRemove(gameId)
-    .then(() =>
-      res.json({
-        message: `Game with ${gameId} is removed successfully.`,
-      })
-    )
+  // Find the game by ID and check if the user who created the game is the same as the authenticated user
+  Game.findOne({ _id: gameId, owner: userId })
+    .then((game) => {
+      if (!game) {
+        res.status(404).json({ message: "Game not found." });
+        return;
+      }
+
+      // The authenticated user is the creator of the game, proceed with deletion
+      Game.findByIdAndRemove(gameId)
+        .then(() => res.json({ message: `Game with ID ${gameId} is removed successfully.` }))
+        .catch((error) => res.json(error));
+    })
     .catch((error) => res.json(error));
 });
+
 module.exports = router;
+

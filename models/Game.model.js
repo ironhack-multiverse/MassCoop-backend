@@ -1,7 +1,8 @@
 const { Schema, model } = require("mongoose");
 
 const gameSchema = new Schema (
-{
+{ 
+    owner: { type: Schema.Types.ObjectId, ref: "User" },
     game: {
         name: String,
         cover:{
