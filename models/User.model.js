@@ -19,7 +19,7 @@ const userSchema = new Schema(
       required: [true, "Name is required."],
     },
     birth: Date,
-    // picture: Image,
+  
     preferences: {
       type: String,
       enum: ["Online games", "Local/offline games", "Both online and local"],
