@@ -6,7 +6,7 @@ const User = require('../models/User.model');
 //display
 router.get('/my-profile/:userId', (req, res, next) => {
     
-    const currentUserId = req.params.userId; // Assuming you have the current user ID available
+    const currentUserId = req.params.userId; 
 
     if (!mongoose.Types.ObjectId.isValid(currentUserId)) {
         res.status(400).json({ message: 'Specified ID is not valid' });
