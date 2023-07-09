@@ -17,8 +17,12 @@ A repository with the front-end code can be found here : [https://github.com/iro
 
 1. Clone this repository to your local machine.
 2. Navigate to the project directory: `cd masscoop-backend`.
-3. Install the dependencies by running: `npm install`.
-4. Set up any required environment variables. 
+3. Install the dependencies by running: `npm install`,`npm install react-router-dom`, `npm install axios`.
+4. Set up the required environment variables : 
+`PORT=5005`
+`ORIGIN=http://localhost:3000`
+`TOKEN_SECRET=y0uRt0k3N$eCr3T `
+
 5. Start the server with the following command:`npm run dev` for development mode.
 6. The backend server should now be running on your local machine (`http://localhost:5005`)
 
